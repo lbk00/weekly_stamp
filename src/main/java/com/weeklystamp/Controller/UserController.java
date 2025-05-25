@@ -1,10 +1,10 @@
-package com.weeklystamp.User.Controller;
+package com.weeklystamp.Controller;
 
 
 import com.weeklystamp.Common.ApiResponse;
-import com.weeklystamp.User.DTO.UserRequestDTO;
-import com.weeklystamp.User.DTO.UserResponseDTO;
-import com.weeklystamp.User.Service.UserService;
+import com.weeklystamp.DTO.UserRequestDTO;
+import com.weeklystamp.DTO.UserResponseDTO;
+import com.weeklystamp.Service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

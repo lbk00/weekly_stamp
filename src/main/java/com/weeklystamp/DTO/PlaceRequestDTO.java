@@ -1,4 +1,4 @@
-package com.weeklystamp.Place.DTO;
+package com.weeklystamp.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

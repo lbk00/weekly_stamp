@@ -1,8 +1,8 @@
-package com.weeklystamp.User.Service;
+package com.weeklystamp.Service;
 
-import com.weeklystamp.User.DTO.UserResponseDTO;
-import com.weeklystamp.User.Entity.User;
-import com.weeklystamp.User.Repository.UserRepository;
+import com.weeklystamp.DTO.UserResponseDTO;
+import com.weeklystamp.Entity.User;
+import com.weeklystamp.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,15 +42,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         userRepository.delete(user); // 삭제
     }
-
-    @Override
-    public void deactivateUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        user.deactivate(); // isActice = false;
-        userRepository.save(user); // 소프트 삭제
-    }
-
 
     /*스케줄러*/
 

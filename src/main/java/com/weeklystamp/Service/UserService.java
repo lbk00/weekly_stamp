@@ -1,8 +1,6 @@
-package com.weeklystamp.User.Service;
+package com.weeklystamp.Service;
 
-import com.weeklystamp.User.DTO.UserResponseDTO;
-
-import java.util.List;
+import com.weeklystamp.DTO.UserResponseDTO;
 
 public interface UserService {
 
@@ -18,11 +16,6 @@ public interface UserService {
      * @param userId 사용자 ID
      */
     void deleteUser(Long userId);
-
-    /**
-     * 사용자 비활성화 (isActive = false)
-     */
-    void deactivateUser(Long userId);
 
 
 }

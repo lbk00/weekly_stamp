@@ -1,6 +1,6 @@
-package com.weeklystamp.Place.Repository;
+package com.weeklystamp.Repository;
 
-import com.weeklystamp.Place.Entity.Place;
+import com.weeklystamp.Entity.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

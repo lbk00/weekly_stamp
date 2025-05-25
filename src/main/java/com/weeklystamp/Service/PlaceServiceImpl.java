@@ -1,11 +1,11 @@
-package com.weeklystamp.Place.Service;
+package com.weeklystamp.Service;
 
-import com.weeklystamp.Place.DTO.PlaceRequestDTO;
-import com.weeklystamp.Place.DTO.PlaceResponseDTO;
-import com.weeklystamp.Place.Entity.Place;
-import com.weeklystamp.Place.Repository.PlaceRepository;
-import com.weeklystamp.User.Entity.User;
-import com.weeklystamp.User.Repository.UserRepository;
+import com.weeklystamp.DTO.PlaceRequestDTO;
+import com.weeklystamp.DTO.PlaceResponseDTO;
+import com.weeklystamp.Entity.Place;
+import com.weeklystamp.Repository.PlaceRepository;
+import com.weeklystamp.Entity.User;
+import com.weeklystamp.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

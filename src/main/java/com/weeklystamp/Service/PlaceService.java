@@ -1,8 +1,7 @@
-package com.weeklystamp.Place.Service;
+package com.weeklystamp.Service;
 
-import com.weeklystamp.Place.DTO.PlaceRequestDTO;
-import com.weeklystamp.Place.DTO.PlaceResponseDTO;
-import com.weeklystamp.Place.Entity.Place;
+import com.weeklystamp.DTO.PlaceRequestDTO;
+import com.weeklystamp.DTO.PlaceResponseDTO;
 
 import java.util.List;
 

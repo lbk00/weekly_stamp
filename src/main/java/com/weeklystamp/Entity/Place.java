@@ -1,6 +1,5 @@
-package com.weeklystamp.Place.Entity;
+package com.weeklystamp.Entity;
 
-import com.weeklystamp.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 

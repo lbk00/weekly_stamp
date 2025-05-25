@@ -1,9 +1,9 @@
-package com.weeklystamp.Place.Controller;
+package com.weeklystamp.Controller;
 
 import com.weeklystamp.Common.ApiResponse;
-import com.weeklystamp.Place.DTO.PlaceRequestDTO;
-import com.weeklystamp.Place.DTO.PlaceResponseDTO;
-import com.weeklystamp.Place.Service.PlaceService;
+import com.weeklystamp.DTO.PlaceRequestDTO;
+import com.weeklystamp.DTO.PlaceResponseDTO;
+import com.weeklystamp.Service.PlaceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

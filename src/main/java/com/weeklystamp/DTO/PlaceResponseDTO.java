@@ -1,6 +1,6 @@
-package com.weeklystamp.Place.DTO;
+package com.weeklystamp.DTO;
 
-import com.weeklystamp.Place.Entity.Place;
+import com.weeklystamp.Entity.Place;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

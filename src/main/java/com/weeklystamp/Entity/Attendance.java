@@ -1,7 +1,5 @@
-package com.weeklystamp.Attendance.Entity;
+package com.weeklystamp.Entity;
 
-import com.weeklystamp.Place.Entity.Place;
-import com.weeklystamp.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,7 +29,7 @@ public class Attendance {
 
     // 만약 30분에 1번씩 출석 인정된다면?
     // 헬스장 옆에만 지나갈때, 체크하는것과 겹치면 인정될수도 있음
-    // 캐시나 redis로 2회 연속 출석일때만 attended true 되도록
+    // 캐시로 2회 연속 출석일때만 attended true 되도록
 
 }
 
