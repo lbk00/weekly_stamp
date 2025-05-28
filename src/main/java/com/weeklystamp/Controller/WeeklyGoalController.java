@@ -1,6 +1,7 @@
 package com.weeklystamp.Controller;
 
 import com.weeklystamp.Common.ApiResponse;
+import com.weeklystamp.DTO.WeeklyGoalProgressDTO;
 import com.weeklystamp.DTO.WeeklyGoalRequestDTO;
 import com.weeklystamp.DTO.WeeklyGoalResponseDTO;
 import com.weeklystamp.Service.WeeklyGoalService;
@@ -17,6 +18,13 @@ public class WeeklyGoalController {
 
     private final WeeklyGoalService weeklyGoalService;
 
+    // 이번주 목표 달성률
+    @GetMapping("/goals/progress")
+    public ResponseEntity<ApiResponse<List<WeeklyGoalProgressDTO>>> getGoalProgress(@RequestParam Long userId) {
+        List<WeeklyGoalProgressDTO> data = weeklyGoalService.getGoalProgress(userId);
+        return ResponseEntity.ok(ApiResponse.success(data));
+    }
+
 
     // 주간 목표 등록
     @PostMapping
@@ -32,7 +40,6 @@ public class WeeklyGoalController {
         List<WeeklyGoalResponseDTO> response = weeklyGoalService.getGoalsByUser(userId);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
-
 
     // 주간 목표 삭제
     @DeleteMapping("/{goalId}")

@@ -1,12 +1,16 @@
 package com.weeklystamp.Service;
 
 
+import com.weeklystamp.DTO.WeeklyGoalProgressDTO;
 import com.weeklystamp.DTO.WeeklyGoalRequestDTO;
 import com.weeklystamp.DTO.WeeklyGoalResponseDTO;
 
 import java.util.List;
 
 public interface WeeklyGoalService {
+
+    // 이번주 출석 달성률 조회
+    List<WeeklyGoalProgressDTO> getGoalProgress(Long userId);
 
     // 주간 목표 생성
     WeeklyGoalResponseDTO createGoal(WeeklyGoalRequestDTO dto);

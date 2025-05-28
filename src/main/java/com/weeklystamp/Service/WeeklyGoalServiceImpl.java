@@ -1,10 +1,12 @@
 package com.weeklystamp.Service;
 
+import com.weeklystamp.DTO.WeeklyGoalProgressDTO;
 import com.weeklystamp.DTO.WeeklyGoalRequestDTO;
 import com.weeklystamp.DTO.WeeklyGoalResponseDTO;
 import com.weeklystamp.Entity.Place;
 import com.weeklystamp.Entity.User;
 import com.weeklystamp.Entity.WeeklyGoal;
+import com.weeklystamp.Repository.AttendanceRepository;
 import com.weeklystamp.Repository.PlaceRepository;
 import com.weeklystamp.Repository.UserRepository;
 import com.weeklystamp.Repository.WeeklyGoalRepository;
@@ -12,6 +14,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +26,42 @@ import java.util.stream.Collectors;
 @Transactional
 public class WeeklyGoalServiceImpl implements WeeklyGoalService {
 
+    private final AttendanceRepository attendanceRepository;
     private final WeeklyGoalRepository weeklyGoalRepository;
     private final UserRepository userRepository;
     private final PlaceRepository placeRepository;
+
+    @Override
+    public List<WeeklyGoalProgressDTO> getGoalProgress(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        List<WeeklyGoal> goals = weeklyGoalRepository.findByUser(user);
+
+        List<WeeklyGoalProgressDTO> result = new ArrayList<>();
+
+        LocalDate startOfWeek = LocalDate.now().with(DayOfWeek.MONDAY);
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
+
+        for (WeeklyGoal goal : goals) {
+            int attendedCount = attendanceRepository.countByUserAndPlaceAndAttendedIsTrueAndCheckInAtBetween(
+                    user, goal.getPlace(), startOfWeek.atStartOfDay(), endOfWeek.atTime(LocalTime.MAX)
+            );
+
+            int target = goal.getTargetCount();
+            int progress = (int) ((double) attendedCount / target * 100);
+
+            result.add(WeeklyGoalProgressDTO.builder()
+                    .goalId(goal.getId())
+                    .placeName(goal.getPlace().getName())
+                    .attendedCount(attendedCount)
+                    .targetCount(target)
+                    .progress(Math.min(progress, 100))
+                    .build());
+        }
+
+        return result;
+    }
 
     @Override
     public WeeklyGoalResponseDTO createGoal(WeeklyGoalRequestDTO dto) {

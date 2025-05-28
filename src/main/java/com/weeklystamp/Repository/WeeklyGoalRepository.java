@@ -17,4 +17,6 @@ public interface WeeklyGoalRepository extends JpaRepository<WeeklyGoal, Long> {
     Optional<WeeklyGoal> findByUserAndPlace(User user, Place place);
 
     boolean existsByUserAndPlace(User user, Place place);
+
+    List<WeeklyGoal> findByUser(User user);
 }
