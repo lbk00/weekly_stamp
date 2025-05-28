@@ -23,6 +23,9 @@ public class Attendance {
     @ManyToOne(fetch = FetchType.LAZY)
     private Place place;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private WeeklyGoal weeklyGoal;
+
     private LocalDateTime checkInAt = LocalDateTime.now();
 
     private boolean attended; // 자동 출석 여부

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,6 +72,25 @@ public class AttendanceServiceImpl implements AttendanceService {
         return AttendanceResponseDTO.fromEntity(attendance);
     }
 
+
+    // 월별 출석 현황
+    @Override
+    public List<LocalDate> getMonthlyAttendance(Long userId, YearMonth yearMonth) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        LocalDate start = yearMonth.atDay(1);
+        LocalDate end = yearMonth.atEndOfMonth();
+
+        List<Attendance> attendances = attendanceRepository.findByUserAndAttendedIsTrueAndCheckInAtBetween(
+                user, start.atStartOfDay(), end.atTime(LocalTime.MAX));
+
+        return attendances.stream()
+                .map(a -> a.getCheckInAt().toLocalDate())
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+    }
 
 
     // 오늘 날짜 기준 사용자 출석 기록 전체 조회
