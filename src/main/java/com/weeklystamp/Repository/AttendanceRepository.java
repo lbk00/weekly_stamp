@@ -24,5 +24,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     List<Attendance> findByUserAndAttendedIsTrueAndCheckInAtBetween(User user, LocalDateTime start, LocalDateTime end);
 
+    List<Attendance> findByUserAndCheckInAtBetween(User user, LocalDateTime start, LocalDateTime end);
+
 
 }

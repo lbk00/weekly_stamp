@@ -1,5 +1,6 @@
 package com.weeklystamp.Controller;
 
+import com.weeklystamp.DTO.AttendanceHistoryDTO;
 import com.weeklystamp.DTO.AttendanceResponseDTO;
 import com.weeklystamp.Service.AttendanceService;
 import com.weeklystamp.Common.ApiResponse;
@@ -39,10 +40,7 @@ public class AttendanceController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    // 여러 장소 추가 가능하면 달력이나 출석률 어떻게 보여줄지??
-    // 그냥 장소 선택하면 해당 장소마다 달력, 출석률 보여주도록
-
-    // 월별 출석 현황 조회
+    // 현재 월별 출석 현황 조회
     @GetMapping("/monthly")
     public ResponseEntity<ApiResponse<List<LocalDate>>> getMonthlyAttendance(
             @RequestParam Long userId,
@@ -50,6 +48,17 @@ public class AttendanceController {
     ) {
         YearMonth ym = YearMonth.parse(yearMonth);
         List<LocalDate> data = attendanceService.getMonthlyAttendance(userId, ym);
+        return ResponseEntity.ok(ApiResponse.success(data));
+    }
+
+    // 지난달 출석 현황 조회
+    @GetMapping("/monthly/history")
+    public ResponseEntity<ApiResponse<List<AttendanceHistoryDTO>>> getMonthlyHistory(
+            @RequestParam Long userId,
+            @RequestParam String yearMonth
+    ) {
+        YearMonth ym = YearMonth.parse(yearMonth);
+        List<AttendanceHistoryDTO> data = attendanceService.getMonthlyHistory(userId, ym);
         return ResponseEntity.ok(ApiResponse.success(data));
     }
 

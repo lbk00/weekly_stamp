@@ -1,5 +1,6 @@
 package com.weeklystamp.Service;
 
+import com.weeklystamp.DTO.AttendanceHistoryDTO;
 import com.weeklystamp.DTO.AttendanceResponseDTO;
 import com.weeklystamp.Entity.Attendance;
 import com.weeklystamp.Repository.AttendanceRepository;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,6 +91,25 @@ public class AttendanceServiceImpl implements AttendanceService {
                 .map(a -> a.getCheckInAt().toLocalDate())
                 .distinct()
                 .sorted()
+                .collect(Collectors.toList());
+    }
+
+    // 지난달 히스토리 조회
+    @Override
+    public List<AttendanceHistoryDTO> getMonthlyHistory(Long userId, YearMonth yearMonth) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        LocalDate start = yearMonth.atDay(1);
+        LocalDate end = yearMonth.atEndOfMonth();
+
+        List<Attendance> records = attendanceRepository.findByUserAndCheckInAtBetween(
+                user, start.atStartOfDay(), end.atTime(LocalTime.MAX)
+        );
+
+        return records.stream()
+                .map(AttendanceHistoryDTO::fromEntity)
+                .sorted(Comparator.comparing(AttendanceHistoryDTO::getDate))
                 .collect(Collectors.toList());
     }
 
