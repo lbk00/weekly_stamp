@@ -14,5 +14,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByIsActiveFalse();
 
-
+    List<User> findByIsActiveTrue();
 }
